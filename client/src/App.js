@@ -1,48 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import "./App.css";
+import Header from './components/Header';
+import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import UserSignUp from './components/UserSignUp';
+import NotFound from './components/NotFound';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      courses: [],
-      isLoading: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({ isLoading: true });
-
-    fetch("http://localhost:5000/api/courses")
-      .then(response => response.json())
-
-      .then(payload =>
-        this.setState({ courses: payload.courses, isLoading: false })
-      );
-  }
-
-  render() {
-    const { courses, isLoading } = this.state;
-
-    if (isLoading) {
-      return <p>Loading...</p>;
-    } else {
-      return (
-        <div className="App">
-          <ul>
-            {courses.map(course => (
-              <li key={course.id}>
-                <h1>{course.title}</h1>
-                <p>{course.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
-  }
-}
-
-export default App;
+export default () => {
+  return (
+    <BrowserRouter>
+    <div>
+      <Header />
+        <Switch>
+          <Route exact path="/courses" component={Courses} />
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route path="/courses/create" component={CreateCourse} />
+          <Route path="/courses/:id/update" component={UpdateCourse} />
+          <Route path="/signin" component={UserSignIn} />
+          <Route path="/signout" component={UserSignOut} />
+          <Route path="/signup" component={UserSignUp} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  )
+};
