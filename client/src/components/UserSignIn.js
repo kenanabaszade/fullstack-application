@@ -1,50 +1,86 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Form from "./Form";
 
 export default class SignIn extends Component {
+  state = {
+    username: "",
+    password: "",
+    errors: []
+  };
+
+  change = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState(() => {
+      return {
+        [name]: value
+      };
+    });
+  };
+
+  submit = () => {
+    const { context } = this.props;
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { username, password } = this.state;
+    context.actions
+      .signIn(username, password)
+      .then(user => {
+        if (user === null) {
+          this.setState(() => {
+            return { errors: ["Sign-in was unsuccessful"] };
+          });
+        } else {
+          this.props.history.push(from);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.history.push("/error");
+      });
+  };
+
+  cancel = () => {
+    this.props.history.push("/");
+  };
+
   render() {
+    const { username, password, errors } = this.state;
+
     return (
-      <div class="bounds">
-        <div class="grid-33 centered signin">
+      <div className="bounds">
+        <div className="grid-33 centered signin">
           <h1>Sign In</h1>
-          <div>
-            <form>
-              <div>
+          <Form
+            cancel={this.cancel}
+            errors={errors}
+            submit={this.submit}
+            submitButtonText="Sign In"
+            elements={() => (
+              <React.Fragment>
                 <input
-                  id="emailAddress"
-                  name="emailAddress"
+                  id="username"
+                  name="username"
                   type="text"
-                  class=""
                   placeholder="Email Address"
-                  value=""
+                  value={username}
+                  onChange={this.change}
                 />
-              </div>
-              <div>
                 <input
                   id="password"
                   name="password"
                   type="password"
-                  class=""
                   placeholder="Password"
-                  value=""
+                  value={password}
+                  onChange={this.change}
                 />
-              </div>
-              <div class="grid-100 pad-bottom">
-                <button class="button" type="submit">
-                  Sign In
-                </button>
-                <button
-                  class="button button-secondary"
-                  onclick="event.preventDefault(); location.href='index.html';"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
+              </React.Fragment>
+            )}
+          />
           <p>&nbsp;</p>
           <p>
-            Don't have a user account? <a href="sign-up.html">Click here</a> to
-            sign up!
+            Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
           </p>
         </div>
       </div>

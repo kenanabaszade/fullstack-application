@@ -11,19 +11,25 @@ import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 import NotFound from './components/NotFound';
 
+import withContext from './Context';
+
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
+const HeaderWithContext = withContext(Header);
+const CourseDetailWithContext = withContext(CourseDetail);
 
 export default () => {
   return (
     <BrowserRouter>
     <div>
-      <Header />
+      <HeaderWithContext />
         <Switch>
-          <Route exact path="/courses" component={Courses} />
-          <Route path="/courses/:id" component={CourseDetail} />
+          <Route exact path="/" component={Courses} />
           <Route path="/courses/create" component={CreateCourse} />
           <Route path="/courses/:id/update" component={UpdateCourse} />
-          <Route path="/signin" component={UserSignIn} />
-          <Route path="/signout" component={UserSignOut} />
+          <Route path="/courses/:id" component={CourseDetailWithContext} />
+          <Route path="/signin" component={UserSignInWithContext} />
+          <Route path="/signout" component={UserSignOutWithContext} />
           <Route path="/signup" component={UserSignUp} />
           <Route component={NotFound} />
         </Switch>
