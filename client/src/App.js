@@ -10,13 +10,20 @@ import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
 import UserSignUp from './components/UserSignUp';
 import NotFound from './components/NotFound';
+import Forbidden from './components/Forbidden';
+import UnhandledError from './components/UnhandledError';
+import PrivateRoute from './PrivateRoute';
 
 import withContext from './Context';
 
+const HeaderWithContext = withContext(Header);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
-const HeaderWithContext = withContext(Header);
+const UserSignUpWithContext = withContext(UserSignUp);
+const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 
 export default () => {
   return (
@@ -24,13 +31,16 @@ export default () => {
     <div>
       <HeaderWithContext />
         <Switch>
-          <Route exact path="/" component={Courses} />
-          <Route path="/courses/create" component={CreateCourse} />
-          <Route path="/courses/:id/update" component={UpdateCourse} />
+          <Route exact path="/" component={CoursesWithContext} />
+          <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
+          <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
           <Route path="/courses/:id" component={CourseDetailWithContext} />
           <Route path="/signin" component={UserSignInWithContext} />
           <Route path="/signout" component={UserSignOutWithContext} />
-          <Route path="/signup" component={UserSignUp} />
+          <Route path="/signup" component={UserSignUpWithContext} />
+          <Route path="/forbidden" component={Forbidden} />
+          <Route path="/notfound" component={NotFound} />
+          <Route path="/error" component={UnhandledError} />
           <Route component={NotFound} />
         </Switch>
       </div>

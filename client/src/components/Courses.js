@@ -16,6 +16,11 @@ export default class Courses extends Component {
         this.setState({
           courses: payload,
         });
+      })
+      .catch(err => {
+        // Handle  rejected Promises
+        console.log(err);
+        this.props.history.push("/error");
       });
   };
 

@@ -57,15 +57,15 @@ router.post(
   [
     check("firstName")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "firstName"'),
+      .withMessage('Please fill in your First Name'),
     check("lastName")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "lastName"'),
+      .withMessage('Please fill in your Last Name'),
     check("emailAddress")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "emailAddress"')
+      .withMessage('Please fill in your Email Address')
       .isEmail()
-      .withMessage('Please provide a valid value for "emailAddress"')
+      .withMessage('Please provide a valid Email Address')
       .custom( async value => {
         if(value) {
           const user = await User.findOne({
@@ -80,7 +80,22 @@ router.post(
       }),
     check("password")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "password"')
+      .withMessage('Please fill in a Password'),
+    check("passwordConfirmation")
+      .exists({ checkNull: true, checkFalsy: true })
+      .withMessage('Please Confirm your Password')
+      .custom((value, { req }) => {
+        // Only attempt to compare the `password` and `passwordConfirmation`
+        // fields if they have values.
+        if (value && req.body.password && value !== req.body.password) {
+          throw new Error(
+            "Password Confirmation doesn't match"
+          );
+        }
+        // Return `true` so the default "Invalid value" error message
+        // doesn't get returned
+        return true;
+      })
   ],
   async (req, res, next) => {
     // Attempt to get the validation result from the Request object.

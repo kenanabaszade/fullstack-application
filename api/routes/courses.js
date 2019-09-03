@@ -100,10 +100,10 @@ router.post(
   [
     check("title")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "title"'),
+      .withMessage('Please fill in the Course Title'),
     check("description")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "description"')
+      .withMessage('Please fill in the Course Description')
   ],
   async (req, res, next) => {
     // Attempt to get the validation result from the Request object.
@@ -152,10 +152,10 @@ router.put(
   [
     check("title")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "title"'),
+      .withMessage('Please fill in the Course Title'),
     check("description")
       .exists({ checkNull: true, checkFalsy: true })
-      .withMessage('Please provide a value for "description"')
+      .withMessage('Please fill in the Course Description')
   ],
   async (req, res, next) => {
     // Attempt to get the validation result from the Request object.

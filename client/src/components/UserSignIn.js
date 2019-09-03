@@ -4,7 +4,7 @@ import Form from "./Form";
 
 export default class SignIn extends Component {
   state = {
-    username: "",
+    emailAddress: "",
     password: "",
     errors: []
   };
@@ -23,9 +23,9 @@ export default class SignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: "/" } };
-    const { username, password } = this.state;
+    const { emailAddress, password } = this.state;
     context.actions
-      .signIn(username, password)
+      .signIn(emailAddress, password)
       .then(user => {
         if (user === null) {
           this.setState(() => {
@@ -46,7 +46,7 @@ export default class SignIn extends Component {
   };
 
   render() {
-    const { username, password, errors } = this.state;
+    const { emailAddress, password, errors } = this.state;
 
     return (
       <div className="bounds">
@@ -60,11 +60,11 @@ export default class SignIn extends Component {
             elements={() => (
               <React.Fragment>
                 <input
-                  id="username"
-                  name="username"
+                  id="emailAddress"
+                  name="emailAddress"
                   type="text"
                   placeholder="Email Address"
-                  value={username}
+                  value={emailAddress}
                   onChange={this.change}
                 />
                 <input

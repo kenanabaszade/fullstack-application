@@ -12,15 +12,58 @@ export default class CourseDetail extends Component {
 
   componentDidMount() {
     const id = this.props.location.pathname;
-    axios.get(`${config.apiBaseUrl}${id}`).then(res => {
-      const course = res.data.course;
-      const user = res.data.course.User;
-      this.setState({
-        course,
-        user
+    axios
+      .get(`${config.apiBaseUrl}${id}`)
+      .then(res => {
+        const course = res.data.course;
+        const user = res.data.course.User;
+        this.setState({
+          course,
+          user
+        });
+      })
+      .catch(err => {
+        if (err.response.status === 500) {
+          this.props.history.push("/notfound");
+        } else {
+          // Handle  rejected Promises
+          console.log(err);
+          this.props.history.push("/error");
+        }
       });
-    });
   }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    if (
+      window.confirm("Are you sure you want to permanently delete this course?")
+    ) {
+      this.submit();
+    } else {
+      return false;
+    }
+  };
+
+  submit = () => {
+    const id = this.props.match.params.id;
+    const { context } = this.props;
+    const encodedCredentials = context.encodedCredentials;
+
+    context.data
+      .deleteCourse(id, encodedCredentials)
+      .then(errors => {
+        if (errors.length) {
+          this.setState({ errors });
+        } else {
+          this.props.history.push("/");
+        }
+      })
+      .catch(err => {
+        // Handle  rejected Promises
+        console.log(err);
+        this.props.history.push("/error");
+      });
+  };
 
   render() {
     const { course, user } = this.state;
@@ -37,9 +80,9 @@ export default class CourseDetail extends Component {
                   <Link className="button" to={`/courses/${course.id}/update`}>
                     Update Course
                   </Link>
-                  <Link className="button" to="#">
+                  <button className="button" onClick={this.handleSubmit}>
                     Delete Course
-                  </Link>
+                  </button>
                 </span>
               ) : null}
               <Link className="button button-secondary" to={"/"}>
