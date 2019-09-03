@@ -16,7 +16,7 @@ export default class Header extends React.PureComponent {
                 <React.Fragment>
                   <span>Welcome, {authUser.user.firstName}!</span>
                   <Link className="signout" to={"/signout"}>
-                    Sign Out
+                    Log Out
                   </Link>
                 </React.Fragment>
               ) : (
@@ -25,7 +25,7 @@ export default class Header extends React.PureComponent {
                     Sign Up
                   </Link>
                   <Link className="signin" to={"/signin"}>
-                    Sign In
+                    Log In
                   </Link>
                 </React.Fragment>
               )}

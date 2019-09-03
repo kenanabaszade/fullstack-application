@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import config from "../config";
 import Form from "./Form";
 
@@ -17,11 +16,11 @@ export default class UpdateCourse extends Component {
     const user = context.authenticatedUser;
 
     const id = this.props.match.params.id;
-    axios
-      .get(`${config.apiBaseUrl}/courses/${id}`)
-      .then(res => {
-        const course = res.data.course;
-        if (res.data.course.userId !== user.user.id) {
+    fetch(`${config.apiBaseUrl}/courses/${id}`)
+      .then(res => res.json())
+      .then(payload => {
+        const course = payload.course;
+        if (course.userId !== user.user.id) {
           this.props.history.push("/forbidden");
         } else {
           this.setState({
@@ -36,7 +35,6 @@ export default class UpdateCourse extends Component {
         if (err.response.status === 500) {
           this.props.history.push("/notfound");
         } else {
-          // Handle  rejected Promises
           console.log(err);
           this.props.history.push("/error");
         }

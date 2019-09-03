@@ -51,7 +51,7 @@ export default class SignIn extends Component {
     return (
       <div className="bounds">
         <div className="grid-33 centered signin">
-          <h1>Sign In</h1>
+          <h1>Log In</h1>
           <Form
             cancel={this.cancel}
             errors={errors}
