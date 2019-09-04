@@ -2,13 +2,28 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Form from "./Form";
 
+/**
+ * SignIn component will display form and Submit User credentials to API request.
+ * @namespace SignIn
+ * @extends React Component
+ */
 export default class SignIn extends Component {
+  /**
+   * State that stores the input from user's credentials.
+   * @type {object}
+   */
   state = {
     emailAddress: "",
     password: "",
     errors: []
   };
 
+  /**
+   * change function watches for inputs and stores it in the state.
+   * @memberof SignIn
+   * @method change
+   * @param event input element in the DOM.
+   */
   change = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -20,6 +35,12 @@ export default class SignIn extends Component {
     });
   };
 
+  /**
+   * submit calls signIn function from context Data's instance.
+   * @memberof SignIn
+   * @method submit
+   * @return {Promise} If credentials is correct, it returns user data. If Throws, return null.
+   */
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: "/" } };
@@ -41,10 +62,20 @@ export default class SignIn extends Component {
       });
   };
 
+  /**
+   * cancel method takes the user back to home page.
+   * @memberof SignIn
+   * @method cancel
+   */
   cancel = () => {
     this.props.history.push("/");
   };
 
+  /**
+   * Render the form to log in.
+   * @memberof SignIn
+   * @return {string} - JSX element
+   */
   render() {
     const { emailAddress, password, errors } = this.state;
 
@@ -80,7 +111,8 @@ export default class SignIn extends Component {
           />
           <p>&nbsp;</p>
           <p>
-            Don't have a user account? <Link to="/signup">Click here</Link> to sign up!
+            Don't have a user account? <Link to="/signup">Click here</Link> to
+            sign up!
           </p>
         </div>
       </div>

@@ -1,11 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Header component will mount the header of the application according to the user status.
+ * @namespace Header
+ * @extends React PureComponent
+ */
 export default class Header extends React.PureComponent {
+  /**
+   * Render the Header to the DOM.
+   * If the user is not logged, It displays Login and Sign Up button.
+   * Else will display user first name with sign out button.
+   * @memberof Header
+   * @return {string} - JSX element
+   */
   render() {
-    
     const { context } = this.props;
     const authUser = context.authenticatedUser;
+
     return (
       <React.Fragment>
         <div className="header">

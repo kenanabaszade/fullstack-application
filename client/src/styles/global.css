@@ -309,6 +309,12 @@ p {
   margin-left: 18px;
 }
 
+.bounds-errors {
+  max-width: 1250px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 /* line 74, ../sass/global.sass */
 .grid, .grid-25, .grid-33, .grid-66, .grid-100 {
   float: left;

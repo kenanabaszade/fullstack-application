@@ -3,12 +3,26 @@ import { Link } from "react-router-dom";
 import config from "../config";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+/**
+ * Courses component will mount all courses to the main page.
+ * @namespace Courses
+ * @extends React Component
+ */
 export default class Courses extends Component {
+  /**
+   * State that stores all courses from the API request.
+   * @type {object}
+   */
   state = {
     courses: [],
     isLoading: false
   };
 
+  /**
+   * componentDidMount fetch the data from API and stores it into state's object.
+   * @memberof Courses
+   * @method componentDidMount
+   */
   componentDidMount() {
     this.setState({
       isLoading: true
@@ -19,7 +33,7 @@ export default class Courses extends Component {
         const courses = payload.courses;
         this.setState({
           courses,
-          isLoading: false,
+          isLoading: false
         });
       })
       .catch(err => {
@@ -29,6 +43,11 @@ export default class Courses extends Component {
       });
   }
 
+  /**
+   * Render the Course's card to the DOM.
+   * @memberof Courses
+   * @return {string} - JSX element
+   */
   render() {
     const { courses, isLoading } = this.state;
 

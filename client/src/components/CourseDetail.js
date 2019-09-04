@@ -4,13 +4,27 @@ import ReactMarkdown from "react-markdown";
 import config from "../config";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+/**
+ * CourseDetail component will mount a specific course to the details page.
+ * @namespace CourseDetail
+ * @extends React Component
+ */
 export default class CourseDetail extends Component {
+  /**
+   * State that stores the course and the course's owner.
+   * @type {object}
+   */
   state = {
     course: [],
     user: [],
     isLoading: false
   };
 
+  /**
+   * componentDidMount fetch the data from API and stores it into state's object.
+   * @memberof CourseDetail
+   * @method componentDidMount
+   */
   componentDidMount() {
     this.setState({
       isLoading: true
@@ -29,28 +43,34 @@ export default class CourseDetail extends Component {
         });
       })
       .catch(err => {
-        if (err.response.status === 500) {
-          this.props.history.push("/notfound");
-        } else {
-          // Handle  rejected Promises
-          console.log(err);
-          this.props.history.push("/error");
-        }
+        console.log(err);
+        this.props.history.push("/notfound");
       });
   }
 
-  handleSubmit = event => {
+  /**
+   * handleSubmit handles the DELETE course.
+   * @memberof CourseDetail
+   * @method handleSubmit
+   * @param event Clicked element in the DOM.
+   */
+  handleDelete = event => {
     event.preventDefault();
     if (
       window.confirm("Are you sure you want to permanently delete this course?")
     ) {
-      this.submit();
+      this.deleteCourse();
     } else {
       return false;
     }
   };
 
-  submit = () => {
+  /**
+   * deleteCourse calls DELETE method to the API.
+   * @memberof CourseDetail
+   * @method deleteCourse
+   */
+  deleteCourse = () => {
     const id = this.props.match.params.id;
     const { context } = this.props;
     const encodedCredentials = context.encodedCredentials;
@@ -71,6 +91,13 @@ export default class CourseDetail extends Component {
       });
   };
 
+  /**
+   * Render the Course Details to the DOM.
+   * If there requested exists it will display all details.
+   * Else will render NotFound component.
+   * @memberof CourseDetail
+   * @return {string} - JSX element
+   */
   render() {
     const { course, user, isLoading } = this.state;
     const { context } = this.props;
@@ -80,7 +107,7 @@ export default class CourseDetail extends Component {
       <div>
         {isLoading ? (
           <div className="loading">
-            <CircularProgress color="white"/>
+            <CircularProgress color="white" />
           </div>
         ) : (
           <React.Fragment>
@@ -95,7 +122,10 @@ export default class CourseDetail extends Component {
                       >
                         Update Course
                       </Link>
-                      <button className="button button-tertiary" onClick={this.handleSubmit}>
+                      <button
+                        className="button button-tertiary"
+                        onClick={this.handleDelete}
+                      >
                         Delete Course
                       </button>
                     </span>

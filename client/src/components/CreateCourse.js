@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import Form from "./Form";
 
+/**
+ * CreateCourse component will display form and Submit course to API request.
+ * @namespace CreateCourse
+ * @extends React Component
+ */
 export default class CreateCourse extends Component {
+  /**
+   * State that stores the input from course's creater.
+   * @type {object}
+   */
   state = {
     title: "",
     description: "",
@@ -10,6 +19,12 @@ export default class CreateCourse extends Component {
     errors: []
   };
 
+  /**
+   * change function watches for input and stores it in the state.
+   * @memberof CreateCourse
+   * @method change
+   * @param event input element in the DOM.
+   */
   change = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -21,6 +36,11 @@ export default class CreateCourse extends Component {
     });
   };
 
+  /**
+   * submit calls createCourse function from context Data's instance.
+   * @memberof CreateCourse
+   * @method submit
+   */
   submit = () => {
     const { context } = this.props;
     const encodedCredentials = context.encodedCredentials;
@@ -50,12 +70,28 @@ export default class CreateCourse extends Component {
       });
   };
 
+  /**
+   * cancel method takes the user back to home page.
+   * @memberof CreateCourse
+   * @method cancel
+   */
   cancel = () => {
     this.props.history.push("/");
   };
 
+  /**
+   * Render the necessary form to create a new course.
+   * @memberof CreateCourse
+   * @return {string} - JSX element
+   */
   render() {
-    const { title, description, estimatedTime, materialsNeeded, errors } = this.state;
+    const {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      errors
+    } = this.state;
 
     return (
       <div className="bounds course--detail">

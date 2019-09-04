@@ -13,9 +13,9 @@ import NotFound from './components/NotFound';
 import Forbidden from './components/Forbidden';
 import UnhandledError from './components/UnhandledError';
 import PrivateRoute from './PrivateRoute';
-
 import withContext from './Context';
 
+// Wrap Components to Context.
 const HeaderWithContext = withContext(Header);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);

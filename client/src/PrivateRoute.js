@@ -2,6 +2,12 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { Consumer } from './Context';
 
+/**
+ * Anonymous function that checks if user is logged.
+ * @namespace PrivateRouter
+ * @param Component - Component wrapped in PrivateRouter
+ * @param context - Component 
+ */
 export default ({ component: Component, ...rest }) => {
   return (
     <Consumer>
