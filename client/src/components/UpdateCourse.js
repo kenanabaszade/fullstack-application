@@ -116,7 +116,8 @@ export default class UpdateCourse extends Component {
    * @method cancel
    */
   cancel = () => {
-    this.props.history.push("/");
+    const id = this.props.match.params.id;
+    this.props.history.push(`/courses/${id}`);
   };
 
   /**
@@ -139,7 +140,7 @@ export default class UpdateCourse extends Component {
       <React.Fragment>
         {isLoading ? (
           <div className="loading">
-            <CircularProgress color="white" />
+            <CircularProgress color="primary" />
           </div>
         ) : (
           <div className="bounds course--detail">

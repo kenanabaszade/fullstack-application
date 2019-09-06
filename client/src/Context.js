@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Data from "./Data";
 import Cookies from "js-cookie";
+import { useLastLocation } from 'react-router-last-location';
 
 // Create Context
 const Context = React.createContext();
@@ -101,9 +102,10 @@ export const Consumer = Context.Consumer;
  */
 export default function withContext(Component) {
   return function ContextComponent(props) {
+    const lastLocation = useLastLocation();
     return (
       <Context.Consumer>
-        {context => <Component {...props} context={context} />}
+        {context => <Component {...props} context={context} lastLocation={lastLocation}/>}
       </Context.Consumer>
     );
   };

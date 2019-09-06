@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { LastLocationProvider } from 'react-router-last-location';
 
 import Header from './components/Header';
 import Courses from './components/Courses';
@@ -28,6 +29,7 @@ const UpdateCourseWithContext = withContext(UpdateCourse);
 export default () => {
   return (
     <BrowserRouter>
+    <LastLocationProvider>
     <div>
       <HeaderWithContext />
         <Switch>
@@ -44,6 +46,7 @@ export default () => {
           <Route component={NotFound} />
         </Switch>
       </div>
+      </LastLocationProvider>
     </BrowserRouter>
   )
 };

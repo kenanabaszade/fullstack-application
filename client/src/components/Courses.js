@@ -55,7 +55,7 @@ export default class Courses extends Component {
       <div className="bounds">
         {isLoading ? (
           <div className="loading">
-            <CircularProgress color="white" />
+            <CircularProgress color="primary" />
           </div>
         ) : (
           <React.Fragment>

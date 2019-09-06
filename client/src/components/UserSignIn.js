@@ -42,8 +42,14 @@ export default class SignIn extends Component {
    * @return {Promise} If credentials is correct, it returns user data. If Throws, return null.
    */
   submit = () => {
+    let redirect;
+    if (this.props.lastLocation) {
+      redirect = { from: { pathname: this.props.lastLocation["pathname"] } };
+    } else {
+      redirect = { from: { pathname: "/" } };
+    }
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { from } = this.props.location.state || redirect;
     const { emailAddress, password } = this.state;
     context.actions
       .signIn(emailAddress, password)

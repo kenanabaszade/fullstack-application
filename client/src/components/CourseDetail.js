@@ -107,7 +107,7 @@ export default class CourseDetail extends Component {
       <div>
         {isLoading ? (
           <div className="loading">
-            <CircularProgress color="white" />
+            <CircularProgress color="primary" />
           </div>
         ) : (
           <React.Fragment>
