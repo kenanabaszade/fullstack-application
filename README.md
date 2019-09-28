@@ -42,7 +42,7 @@ It will install the required dependencies in the client folder.
 *finally* 
 you can run both with the command:
 ### `npm run dev`
-It will run the server on [http://localhost:5000](http://localhost:5000) and client on [http://localhost:3000](http://localhost:3000) 
+It will run the server on [http://localhost:5000](http://localhost:5000) and the client on [http://localhost:3000](http://localhost:3000) 
 
 Stack:
 - Javascript ES6
