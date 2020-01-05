@@ -1,6 +1,6 @@
 Full Stack Application
 
-This project uses technologies such as Node.js, Express.js, SQLite, REST API, React.js, JSX, and NPM. I've built a full stack application where users can create an account, log in and interact with the database using a REST API build with Node.js and Express.js. The App interacts directly with the database, using CRUD methods. The user can read and create any course information and store it in the database. The user can only update and delete courses that he creates. The application uses react authentication along with Sequelize validation to secure user's access.
+This project uses technologies such as React.js, Node.js, Express.js, SQLite, REST API, JSX, and NPM. I've built a full stack application where users can create an account, log in and interact with the database using a REST API build with Node.js and Express.js. The App interacts directly with the database, using CRUD methods. The user can read and create any course information and store it in the database. The user can only update and delete courses that he creates. The application uses react authentication along with Sequelize validation to secure user's access.
 
 To run this application locally, go to **api folder** and run:
 ### `npm install`
